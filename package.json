@@ -1,0 +1,26 @@
+{
+  "name": "js-card-game",
+  "version": "0.1.0",
+  "description": "Javascript lib to manage cards and players",
+  "private": true,
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "keywords": [
+    "js",
+    "card",
+    "game"
+  ],
+  "author": "Àngel Andreu",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "readline-sync": "^1.4.10",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}

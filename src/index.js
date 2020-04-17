@@ -7,19 +7,15 @@ function component() {
 document.body.appendChild(component());
 */
 
-// const { inspect } = require("util");
-const ask = require("readline-sync").question;
-const { deckType } = require("./cards");
-const { Player, Game } = require("./game");
+const { Player, Game7yM } = require("./game7yM");
 
-// TODO: Ask for players nicknames by console
-let players = [
+// TODO: Ask for players nicknames
+const players = [
   new Player("player1"),
   new Player("player2"),
   new Player("player3"),
 ];
 
-let deck = deckType.spanish40;
-let game7yM = new Game(deck, players);
+let game7yM = new Game7yM(players);
 game7yM.start();
 game7yM.play();

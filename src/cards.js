@@ -1,10 +1,14 @@
+// *******************************************************
+// * Cards classes definitions used in game.js base model
+// *******************************************************
+
 class Card {
-  constructor(value, suit) {
+  constructor(value, suit, points = 0) {
     this.value = value;
     this.suit = suit;
     this.facedown = true;
     this._id = value + "_" + suit;
-    this._points = 0;
+    this._points = points;
   }
   get id() {
     return this._id;
@@ -47,6 +51,30 @@ class CardSet extends Set {
     });
   }
 
+  hideAll() {
+    this.forEach((card) => {
+      card.facedown = true;
+    });
+  }
+
+  unhideAll() {
+    this.forEach((card) => {
+      card.facedown = false;
+    });
+  }
+
+  // TODO:
+  // unhide(id)
+  /*
+  [...player.table].some((card) => {
+    if (card.facedown == true) {
+      card.facedown = false;
+      return true; // stop the iteration
+    }
+  });
+  */
+
+  // Print points and cards from unhidden cards in the set
   printPublic(show = false) {
     let message = [...this].flatMap((card) =>
       !card.facedown ? "[" + card.id + " " + card.points + "]" : "hidden"
@@ -60,6 +88,7 @@ class CardSet extends Set {
     else return message;
   }
 
+  // Print total points and cards in the set
   printAll(show = false) {
     let message = [...this].flatMap(
       (card) => card.id + " (" + card.points + ")"
@@ -70,12 +99,13 @@ class CardSet extends Set {
   }
 }
 
+// Define points assignment conditions in "points" function
 const deckType = {
   spanish40: {
     values: [1, 2, 3, 4, 5, 6, 7, "sota", "caballo", "rey"],
     suits: ["oros", "copas", "espadas", "bastos"],
-    points: function (card) {
-      if (Number(card.value)) return card.value;
+    points: function (value) {
+      if (Number(value)) return value;
       else return 0.5;
     },
   },
@@ -86,11 +116,8 @@ class Deck extends CardSet {
     super();
     type.suits.forEach((suit) => {
       type.values.forEach((value) => {
-        this.add(new Card(value, suit));
+        this.add(new Card(value, suit, type.points(value)));
       });
-    });
-    this.forEach((card) => {
-      card.points = type.points(card);
     });
   }
 }

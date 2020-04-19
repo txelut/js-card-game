@@ -99,18 +99,6 @@ class CardSet extends Set {
   }
 }
 
-// Define points assignment conditions in "points" function
-const deckType = {
-  spanish40: {
-    values: [1, 2, 3, 4, 5, 6, 7, "sota", "caballo", "rey"],
-    suits: ["oros", "copas", "espadas", "bastos"],
-    points: function (value) {
-      if (Number(value)) return value;
-      else return 0.5;
-    },
-  },
-};
-
 class Deck extends CardSet {
   constructor(type) {
     super();
@@ -120,6 +108,18 @@ class Deck extends CardSet {
       });
     });
   }
+  // Deck types
+  static spanish40() {
+    return {
+      values: [1, 2, 3, 4, 5, 6, 7, "sota", "caballo", "rey"],
+      suits: ["oros", "copas", "espadas", "bastos"],
+      // Define points assignment conditions in "points" callback
+      points: function (value) {
+        if (Number(value)) return value;
+        else return 0.5;
+      },
+    };
+  }
 }
 
-module.exports = { CardSet, Deck, deckType };
+module.exports = { CardSet, Deck };

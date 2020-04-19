@@ -4,20 +4,25 @@
 
 const { CardSet, Deck } = require("./cards");
 
-const STATUS = {
-  idle: "idle",
-  inturn: "in-turn",
-  done: "done",
-  dealer: "dealer",
-};
-
 class Player {
+  static STATUS = {
+    idle: "idle",
+    inturn: "in-turn",
+    done: "done",
+    dealer: "dealer",
+  };
   constructor(nickname) {
     this.nickname = nickname;
     this.hand = new CardSet(); // Cards on hand, always hidden
     this.table = new CardSet(); // Cards on table, hidden or not
-    this.status = STATUS.idle;
+    this.status = Player.STATUS.idle;
     this.points = 0; // Game points
+  }
+  get status() {
+    return this._status;
+  }
+  set status(status) {
+    this._status = status;
   }
 }
 
@@ -79,4 +84,4 @@ class Game {
   }
 }
 
-module.exports = { Player, Game, STATUS };
+module.exports = { Player, Game };
